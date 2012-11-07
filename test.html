@@ -1,0 +1,20 @@
+<html>
+<head>
+<body>
+<script src="http://files.cnblogs.com/iamzhanglei/processing.js" type="text/javascript">script>
+<script type="text/javascript">
+var p = new Processing(document.getElementById('canvas'));
+p.draw = function(){
+	p.size(200, 200);
+	p.background(0); 
+	p.fill(80); noStroke(); 
+	p.ellipse(100, 100, 160, 160); 
+	p.stroke(255);
+	p.line(100, 100, p.cos( TWO_PI*second()/60- HALF_PI) * 70 + 100, p.sin(TWO_PI*second()/60- HALF_PI) * 70 + 100);
+	p.line(100, 100, p.cos( TWO_PI*minute()/60- HALF_PI) * 60 + 100, p.sin(TWO_PI*minute()/60- HALF_PI) * 60 + 100);
+	p.line(100, 100, p.cos(TWO_PI*(hour()%12)/12- HALF_PI) * 50 + 100, p.sin(TWO_PI*(hour()%12)/12- HALF_PI) * 50 + 100);
+}
+</script>
+<canvas id="canvas">你的浏览器不支持HTML5,请使用谷歌、IE9或者火狐浏览器</canvas>
+</body>
+</html>
