@@ -2,18 +2,23 @@
 window.onload = function() {
 	var video = document.getElementById('video');
 	var canvas = document.getElementById('canvas');
-	var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||function() {console.log('Your browser doesn\'t support getUserMedia.')};
-	getUserMedia({
-		'video': true
-	}, onSuccess, onError);
+	if (navigator.getUserMedia) {
+		// opera users (hopefully everyone else at some point)
+		navigator.getUserMedia({
+			video: true
+		}, onSuccess, onError);
+	} else if (navigator.webkitGetUserMedia) {
+		// webkit users
+		navigator.webkitGetUserMedia('video', onSuccess, onError);
+	}
 
 	function onSuccess(stream) {
 		video.src = stream;
-		var worker = new Worker('js/vp.js');
-		worker.onmessage = function(event) {
-			console.log("Called back by the worker!\n",event);
-		};
-		worker.postMessage("haha"); // start the worker.
+		setInterval(function(){
+			canvas.width = parseInt(getComputedStyle(video).width);
+			canvas.height = parseInt(getComputedStyle(video).height);
+			canvas.getContext('2d').drawImage(video, 0, 0);
+		},20);
 	}
 
 	function onError(error) {

@@ -3,3 +3,7 @@
 	height: 0px;
 	display: inline;
 }
+
+canvas {
+	margin-right: 20px;
+}
