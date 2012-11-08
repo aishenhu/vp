@@ -141,7 +141,9 @@ Jx().$package('vp.effects',function(J){
 			$p.rect(0, 0, $p.width, $p.height);
 			//$p.translate($p.width / 2, $p.height / 2);
 			var idx = $p.parseInt($p.frameCount / 20) % 1000;
+			idx = idx > 1000 ? 0 : idx;
 			var idx2 = $p.parseInt(($p.frameCount + 100) / 20) % 1000;
+			idx2 = idx2 > 1000?0 : idx2;
 			var ofs = $p.frameCount % 20;
 			var x = pos[idx].x + $p.parseFloat(ofs) * (pos[idx + 1].x - pos[idx].x) / 20;
 			var y = pos[idx].y + $p.parseFloat(ofs) * (pos[idx + 1].y - pos[idx].y) / 20;
