@@ -9,10 +9,11 @@ window.onload = function() {
 		}, onSuccess, onError);
 	} else if (navigator.webkitGetUserMedia) {
 		// webkit users
-		navigator.webkitGetUserMedia('video', onSuccess, onError);
+		navigator.webkitGetUserMedia({video:true}, onSuccess, onError);
 	}
 
 	function onSuccess(stream) {
+		console.log('success');
 		video.src = stream;
 		setInterval(function(){
 			canvas.width = parseInt(getComputedStyle(video).width);
