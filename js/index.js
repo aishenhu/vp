@@ -1,6 +1,5 @@
 ;
-//window.onload =
- function() {
+window.onload = function() {
 	var video = document.getElementById('video');
 	var canvas = document.getElementById('canvas');
 	if (navigator.getUserMedia) {
