@@ -1,5 +1,5 @@
 ;
-window.onload = function() {
+Jx().$package('vp.effects',function(J){
 	var canvas = document.getElementById('canvas');
 	var srcImg = document.getElementById('preloader');
 	canvas.width = 320;
@@ -83,7 +83,7 @@ window.onload = function() {
 		var dir = 0;
 		$p.draw = function() {
 			$p.noStroke();
-			$p.fill(0, 10);
+			$p.fill(0, 20);
 			$p.rect(0, 0, $p.width, $p.height);
 			//$p.translate($p.width / 2, $p.height / 2);
 			$p.fill(255, 255, 0);
@@ -94,11 +94,11 @@ window.onload = function() {
 				dir = 0;
 			}
 			if (dir == 1) {
-				x -= 1;
-				y -= 1;
+				x -= 2;
+				y -= 2;
 			} else if (dir == 0) {
-				x += 1;
-				y += 1;
+				x += 2;
+				y += 2;
 			}
 			$p.ellipse(x, y, 10, 10);
 		}
@@ -137,7 +137,7 @@ window.onload = function() {
 
 		$p.draw = function() {
 			$p.noStroke();
-			$p.fill(0, 10);
+			$p.fill(0, 20);
 			$p.rect(0, 0, $p.width, $p.height);
 			//$p.translate($p.width / 2, $p.height / 2);
 			var idx = $p.parseInt($p.frameCount / 20) % 1000;
@@ -221,4 +221,4 @@ window.onload = function() {
 		$p.setup();
 
 	})();
-}
+})

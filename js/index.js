@@ -1,11 +1,13 @@
 ;
-window.onload = function() {
+//window.onload =
+ function() {
 	var video = document.getElementById('video');
 	var canvas = document.getElementById('canvas');
 	if (navigator.getUserMedia) {
 		// opera users (hopefully everyone else at some point)
 		navigator.getUserMedia({
-			video: true
+			video: true,
+			audio: true
 		}, onSuccess, onError);
 	} else if (navigator.webkitGetUserMedia) {
 		// webkit users
@@ -13,8 +15,12 @@ window.onload = function() {
 	}
 
 	function onSuccess(stream) {
-		console.log('success');
-		video.src = stream;
+		console.log(stream);
+		if(navigator.webkitGetUserMedia){
+			video.src = webkitURL.createObjectURL(stream);
+		}else{
+			video.src = stream;
+		}
 		setInterval(function(){
 			canvas.width = parseInt(getComputedStyle(video).width);
 			canvas.height = parseInt(getComputedStyle(video).height);
