@@ -52,7 +52,7 @@ Jx().$package('vp.img', function(J){
 				screenData.data[i] = screenData.data[i+1] =screenData.data[i+2] = screenGray;
 				var bd = baseGray + baseData.data[i+3];
 				var sd = screenGray + screenData.data[i+3];
-				if(bd - sd > 10){
+				if(bd - sd > 10 || sd - bd > 10){
 					diffcount ++;
 					screenData.data[i]= 0;
 					screenData.data[i+1]= 0;
