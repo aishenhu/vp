@@ -61,9 +61,9 @@ window.onload = function() {
 				video.src = stream;
 			}
 			setTimeout(function() {
-				ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0);
+				ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0, 1024, 768);
 				setInterval(function() {
-					ImageModule.screenCanvas.getContext('2d').drawImage(video, 0, 0);
+					ImageModule.screenCanvas.getContext('2d').drawImage(video, 0, 0, 1024, 768);
 					ImageModule.start();
 					//ImageModule.compareCanvas.getContext('2d').putImageData(resData, 0, 0);
 					//console.log(1);

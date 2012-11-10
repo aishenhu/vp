@@ -17,7 +17,7 @@ Jx().$package("WallComing",function(J) {
 
 	var bgChangeDuration=0.5;
 	var bgt=0;
-	var bgArr=["url('../images/bg1.jpg')","url('../images/bg.png')"];
+	var bgArr=["url('images/bg1.jpg')","url('images/bg.png')"];
 	var bgIndex=0;
 
 	var wallIndex=0;
@@ -56,14 +56,14 @@ Jx().$package("WallComing",function(J) {
 			this.wall=wall;
 		},
 		update:function(duration){
-			bgt+=duration;
-			if(bgt>=bgChangeDuration) {
-				cg.canvas.style.background=bgArr[bgIndex];
+			//bgt+=duration;
+			// if(bgt>=bgChangeDuration) {
+			// 	cg.canvas.style.background=bgArr[bgIndex];
 			
-				bgt=0;
-				bgIndex++;
-				if(bgIndex==2) bgIndex=0;
-			}
+			// 	bgt=0;
+			// 	bgIndex++;
+			// 	if(bgIndex==2) bgIndex=0;
+			// }
 
 			var spriteList=this.spriteList;
 			//精灵更新
@@ -75,12 +75,23 @@ Jx().$package("WallComing",function(J) {
 			if(this.wall&&this.wall.isDisappear){
 				spriteList.remove(this.wall);
 				//检测
-
-				// var r=ImageModule.compareAlpha(
-				// 	this.compare.getContext("2d").getImageData(),
-				// 	cg.context.getImageData()
-				// );
-				// alert(r);
+			
+				var r=ImageModule.compareAlpha(
+					this.compare.getContext("2d").getImageData(
+						0,
+						0,
+						this.compare.width,
+						this.compare.height
+					),
+					cg.context.getImageData(
+						0,
+						0,
+						cg.canvas.width,
+						cg.canvas.height
+					)
+				);
+				//alert(r);
+				//console.log(r);
 
 
 				wallIndex++;
@@ -96,6 +107,17 @@ Jx().$package("WallComing",function(J) {
 			// var _img=cg.loader.loadedImgs[srcObj.test];
 			// cg.context.drawImage(_img,0,0,_img.width,_img.height,250,200,400,300);
 			//绘制
+			var bgImg=cg.loader.loadedImgs[srcObj.background];
+			cg.context.save();
+			cg.context.globalAlpha=0.5;
+			cg.context.drawImage(bgImg,0,0,bgImg.width,bgImg.height,0,0,bgImg.width,bgImg.height);
+			cg.context.restore();
+
+			cg.context.save();
+			
+			cg.context.drawImage(bgImg,0,0,120,bgImg.height,0,0,120,bgImg.height);
+			cg.context.drawImage(bgImg,904,0,120,bgImg.height,904,0,120,bgImg.height);
+			cg.context.restore();
 			this.spriteList.draw();
 		}
 	}
