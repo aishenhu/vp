@@ -1,6 +1,6 @@
 ;
 Jx().$package('vp.effects',function(J){
-	var canvas = document.getElementById('canvas');
+	var canvas = document.getElementById('pcanvas');
 	var srcImg = document.getElementById('preloader');
 	canvas.width = 320;
 	canvas.height = 320;

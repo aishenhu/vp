@@ -12,8 +12,6 @@
 
 canvas {
 	margin-right: 20px;
-	border:1px solid #F9264C;
-	border-radius: 10px;
 }
 
 #compare {
@@ -21,4 +19,8 @@ canvas {
 	top:26px;
 	left: 8px;
 	/*opacity: 0.4;*/
+}
+
+#pcanvas {
+	position: absolute;
 }
