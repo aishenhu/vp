@@ -1,0 +1,15 @@
+.canvasWrap{
+	width:1024px;
+	height: 768px;
+	left:50%;
+	top:50%;
+	margin: -384px 0 0 -512px;
+	position: absolute;
+	opacity: 0.9;
+	background:url('../images/bg1.jpg');
+}
+/*.textCanvas{
+	position: absolute;
+	left:20px;
+	top: 20px;
+}*/

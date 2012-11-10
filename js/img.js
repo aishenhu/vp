@@ -5,7 +5,9 @@ var ImageModule = {
 		}
 		this.baseCanvas = $('base');
 		this.screenCanvas = $('screen');
-		this.compareCanvas = $('compare');
+		this.compareCanvas = $('compare'); 
+		this.pwidth = 1024;
+		this.pheight = 768;
 		//this.baseCanvas.getContext("2d").drawImage($("baseImg"),0,0);
 		//this.screenCanvas.getContext("2d").drawImage($("screenImg"),0,0);
 		//this.start();
@@ -18,10 +20,11 @@ var ImageModule = {
 
 		var baseD = baseData.data,
 			screenD = screenData.data,
-			width = screenD.width,
-			height = screenD.height;
+			width = this.pwidth,
+			height = this.pheight;
 		var diffcount = 0;
 		var range = 40;
+		console.log('width, height', width, height);
 
 		for (var i = 0, len = screenD.length; i < len; i = i + 4) {
 			var grayB = baseD[i]*0.3 + baseD[i+1]*0.59 + baseD[i+2]*0.11;
@@ -43,8 +46,8 @@ var ImageModule = {
 	filtering: function(imgdata, size){
 		var data = imgdata.data,
 			newdata = [],
-			width = imgdata.width,
-			height = imgdata.height,
+			width = this.pwidth,
+			height = this.pheight;
 			index,
 			row,
 			column,
@@ -93,8 +96,8 @@ var ImageModule = {
 	corrosion: function(imgdata, size){
 		var data = imgdata.data,
 			newdata = [],
-			width = imgdata.width,
-			height = imgdata.height,
+			width = this.pwidth,
+			height = this.pheight;
 			index,
 			row,
 			column,
@@ -135,8 +138,8 @@ var ImageModule = {
 	swell: function(imgdata){
 		var data = imgdata.data,
 			newdata = [],
-			width = imgdata.width,
-			height = imgdata.height,
+			width = this.pwidth,
+			height = this.pheight;
 			index,
 			row,
 			column,
@@ -175,7 +178,7 @@ var ImageModule = {
 
 	start: function() {
 		var baseData = this.baseCanvas.getContext('2d').getImageData(0,0,this.baseCanvas.width, this.baseCanvas.height);
-		var screenData = this.screenCanvas.getContext('2d').getImageData(0,0,this.screenCanvas.width, this.screenCanvas.height);
+		var screenData = this.screenCanvas.getContext('2d').getImageData(0,0, this.screenCanvas.width, this.screenCanvas.height);
 
 		this.processCompare(baseData, screenData);
 	}
