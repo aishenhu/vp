@@ -77,9 +77,12 @@ var ImageModule = {
 			var average2 = (data2[4*i] + data2[4*i+1] + data2[4*i+2]) / 3;
 			var diff = threshold(fastAbs(average1 - average2));
 			target[4*i] = diff;
-			target[4*i+1] = 0;
-			target[4*i+2] = 0;
+			target[4*i+1] = diff;
+			target[4*i+2] = diff;
 			target[4*i+3] = 0xFF;
+			if(diff == 0){
+				target[4*i + 3 ] = 0;
+			}
 			++i;
 			if(diff != 0){
 				validCount ++;
@@ -104,8 +107,8 @@ var ImageModule = {
 		while (i < (target.length * 0.25)) {
 			if(target[4*i] != 0){
 				target[4*i] = 255;
-				target[4*i+1] = 0;
-				target[4*i+2] = 0;
+				target[4*i+1] = 255;
+				target[4*i+2] = 255;
 				target[4*i+3] = 0xFF;
 				
 			}

@@ -75,7 +75,7 @@ window.onload = function() {
 			var frameCount = 0;
 			
 			rafLoop(function(){
-				ImageModule.compareCanvas.style.width = getComputedStyle(video).width;
+			ImageModule.compareCanvas.style.width = getComputedStyle(video).width;
 			ImageModule.compareCanvas.style.height = getComputedStyle(video).height;
 				frameCount ++;
 				ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0);
