@@ -43,5 +43,12 @@ var ImageModule = {
 		var screenData = this.screenCanvas.getContext('2d').getImageData(0,0,this.screenCanvas.width, this.screenCanvas.height);
 
 		return this.processCompare(baseData, screenData);
+	},
+
+	denoise: function(imageData){
+		var step = 1;
+		for(var i = 0; i < imageData.data.length; i = i + 4 * step){
+			
+		}
 	}
 }
