@@ -80,7 +80,11 @@ var ImageModule = {
 			target[4*i+2] = diff;
 			target[4*i+3] = 0xFF;
 			if(diff == 0){
-				//target[4*i + 3 ] = 0;
+				target[4*i + 3 ] = 0;
+			}else{
+				target[4*i] = 0;
+				target[4*i+1] = 0;
+				target[4*i+2] = 0;
 			}
 			++i;
 			if(diff != 0){
