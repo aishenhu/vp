@@ -14,6 +14,15 @@ Jx().$package("WallComing",function(J) {
 
 	//初始化框架
 	J.cnGame.init("canvas", { size:[1024,768],isScaleBg:false,fps:60,tps:60});
+var isShow=true;
+	function showEffect(target,className){
+		target.className="";
+		setTimeout(function(){
+			target.className=className;
+		},0);
+		isShow=false;
+
+	}
 
 	var bgChangeDuration=0.5;
 	var bgt=0;
@@ -22,6 +31,10 @@ Jx().$package("WallComing",function(J) {
 
 	var wallIndex=0;
 	var wallArr=["wall0","wall1","wall2"];
+
+	var wallDuration=1;
+	var wallt=0;
+
 	var gameObj={
 		initialize:function(){
 			
@@ -93,21 +106,29 @@ Jx().$package("WallComing",function(J) {
 				//alert(r);
 				//console.log(r);
 				//Perfect
-				if(r.rate < 0.1){ 
-
-				}else if(r.rate < 0.13){//Good
-
-				}else if(r.rate < 0.15){//pass
-
-				}else{//Fail
-
+				if(r.rate < 0.1&&isShow){
+					showEffect($D.id("perfect"),"perfect");
+				}else if(r.rate < 0.13&&isShow){//Good
+					showEffect($D.id("good"),"good");
+				}else if(r.rate < 0.15&&isShow){//pass
+					showEffect($D.id("crush"),"crush");
+				}else if(isShow){//Fail
+					showEffect($D.id("bad"),"bad");
+					
 				}
 
 				wallIndex++;
 				if(wallIndex==wallArr.length){
 					wallIndex=0;
 				}
-				this.createWall();
+
+				wallt+=duration;
+				if(wallt>wallDuration){
+					isShow=true;
+					this.createWall();
+					wallt=0;
+				}
+			
 			}
 
 			//$D.id("fps").innerHTML="FPS:"+cg.loop.avgFPS;

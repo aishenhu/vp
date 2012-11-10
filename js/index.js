@@ -85,10 +85,10 @@ window.onload = function() {
 		//do something when the door is open
 		$D.removeClass(document.getElementById('canvasWrap'), 'hidden');
 		$D.addClass(Wallcoming.effects.canvas,'hidden');
-		// ImageModule.init();
-		// VideoModule.init();
-		// VideoModule.start();
-		// WallComing.time.startGame();
+		ImageModule.init();
+		VideoModule.init();
+		VideoModule.start();
+		WallComing.time.startGame();
 	});
 
 	Wallcoming.effects.init();

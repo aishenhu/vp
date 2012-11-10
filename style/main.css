@@ -144,3 +144,76 @@ body {
 		background-color: white;
 	}	
 }
+
+
+.bad{
+	position: absolute;
+	background: url('../images/bad.png');
+	left: 50%;
+	top:50%;
+	width: 410px;
+	height: 214px;
+	/*background: red;*/
+	margin: -107px 0 0 -205px;
+	-webkit-animation:bad 1s ease-out;
+	-webkit-animation-fill-mode:both;
+}
+
+@-webkit-keyframes bad{
+    50% { -webkit-transform: scale(2) }
+    100% { opacity: 0; -webkit-transform: scale(2);}
+}	
+
+.good{
+	position: absolute;
+	background: url('../images/good.png');
+	left: 50%;
+	top:50%;
+	width: 410px;
+	height: 214px;
+	/*background: red;*/
+	margin: -107px 0 0 -205px;
+	-webkit-animation:bad 1s ease-out;
+	-webkit-animation-fill-mode:both;
+}
+
+@-webkit-keyframes good{
+    50% { -webkit-transform: scale(2) }
+    100% { opacity: 0; -webkit-transform: scale(2);}
+}	
+
+.perfect{
+	position: absolute;
+	background: url('../images/perfect.png');
+	left: 50%;
+	top:50%;
+	width: 410px;
+	height: 214px;
+	/*background: red;*/
+	margin: -107px 0 0 -205px;
+	-webkit-animation:perfect 1s ease-out;
+	-webkit-animation-fill-mode:both;
+}
+
+@-webkit-keyframes perfect{
+    50% { -webkit-transform: scale(2) }
+    100% { opacity: 0; -webkit-transform: scale(2);}
+}	
+
+.crush{
+	position: absolute;
+	background: url('../images/crush.png');
+	left: 50%;
+	top:50%;
+	width: 410px;
+	height: 214px;
+	/*background: red;*/
+	margin: -107px 0 0 -205px;
+	-webkit-animation:crush 1s ease-out;
+	-webkit-animation-fill-mode:both;
+}
+
+@-webkit-keyframes crush{
+    50% { -webkit-transform: scale(2) }
+    100% { opacity: 0; -webkit-transform: scale(2);}
+}	
