@@ -93,6 +93,15 @@ Jx().$package("WallComing",function(J) {
 				//alert(r);
 				//console.log(r);
 
+				if(r.rate < 10%){ //Perfect
+
+				}else if(r.rate < 13%){//Good
+
+				}else if(r.rate < 15%){//pass
+
+				}else{//Fail
+
+				}
 
 				wallIndex++;
 				if(wallIndex==wallArr.length){

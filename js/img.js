@@ -191,17 +191,17 @@ var ImageModule = {
 			if(srcImageData.data[i+3] > 0){
 				invokeCount++;
 
-				// var space = 120;
-				// if(i < space * this.pwidth){
-				// 	diffcount ++;
-				// }else if(i> (this.pheight - space) * this.pwidth){
-				// 	diffcount ++;
-				// }else if(i % this.pwidth < space){
-				// 	diffcount ++;
-				// }else if(i % this.pwidth > this.pwidth - space){
-				// 	diffcount ++;
-				// }
-				// else 
+				var space = 120;
+				if(i < space * this.pwidth){
+					diffcount ++;
+				}else if(i> (this.pheight - space) * this.pwidth){
+					diffcount ++;
+				}else if(i % this.pwidth < space){
+					diffcount ++;
+				}else if(i % this.pwidth > this.pwidth - space){
+					diffcount ++;
+				}
+				else 
 				if(Math.abs((srcImageData.data[i+3] - targetImageData.data[i+3]) < 255)){
 					diffcount ++;
 				}
@@ -211,6 +211,9 @@ var ImageModule = {
 		}
 		console.log('invokeCount:', invokeCount);
 		console.log('diffcount:', diffcount);
-		return diffcount ;
+		return {
+			diffcount: diffcount,
+			rate : diffcount*4.0/srcImageData.data.length
+		}
 	}
 }
