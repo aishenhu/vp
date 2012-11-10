@@ -77,8 +77,8 @@ var ImageModule = {
 			var average2 = (data2[4*i] + data2[4*i+1] + data2[4*i+2]) / 3;
 			var diff = threshold(fastAbs(average1 - average2));
 			target[4*i] = diff;
-			target[4*i+1] = diff;
-			target[4*i+2] = diff;
+			target[4*i+1] = 0;
+			target[4*i+2] = 0;
 			target[4*i+3] = 0xFF;
 			++i;
 			if(diff != 0){
@@ -98,10 +98,19 @@ var ImageModule = {
 		}else{
 			console.log('update last valid');
 			this.lastValid = target;
-			target = this.denoise(target, 5, 10);
+			this.denoise(target, 5, 10);
 		}
 		//取样
-		
+		while (i < (target.length * 0.25)) {
+			if(target[4*i] != 0){
+				target[4*i] = 255;
+				target[4*i+1] = 0;
+				target[4*i+2] = 0;
+				target[4*i+3] = 0xFF;
+				
+			}
+			++i;
+		}
 		//this.filtering(target, 3);
 	},
 	compare: function(baseData, screenData) {
@@ -166,8 +175,6 @@ var ImageModule = {
 				}
 			}
 		}
-
-		return imageData;
 	},
 
 	filtering: function(imgdata, size){

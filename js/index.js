@@ -73,7 +73,10 @@ window.onload = function() {
 			// }, 2000);
 			var lastImageData = 0;
 			var frameCount = 0;
+			
 			rafLoop(function(){
+				ImageModule.compareCanvas.style.width = getComputedStyle(video).width;
+			ImageModule.compareCanvas.style.height = getComputedStyle(video).height;
 				frameCount ++;
 				ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0);
 				var width = ImageModule.baseCanvas.width;

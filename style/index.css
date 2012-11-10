@@ -18,6 +18,7 @@ canvas {
 
 #compare {
 	position: absolute;
-	top:20px;
-	left: 0;
+	top:26px;
+	left: 8px;
+	opacity: 0.4;
 }
