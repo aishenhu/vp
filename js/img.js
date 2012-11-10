@@ -38,7 +38,7 @@ var ImageModule = {
 				resData.data[i] = 0;
 				resData.data[i + 1] = 0;
 				resData.data[i + 2] = 0;
-				resData.data[i + 3] = 255;
+				resData.data[i + 3] = 0;
 			} else {
 				resData.data[i] = 255;
 				resData.data[i + 1] = 255;
@@ -55,7 +55,12 @@ var ImageModule = {
 		}
 	},
 
-	differenceAccuracy: function(target, data1, data2) {
+	differenceAccuracy: function(target, last, cur) {
+		var data1 = last.data;
+		var data2 = cur.data;
+		var width = last.width;
+		var height = last.height;
+		var validCount = 0;
 		if (data1.length != data2.length) return null;
 		var i = 0;
 		function fastAbs(value) {
@@ -66,6 +71,7 @@ var ImageModule = {
 		function threshold(value) {
 			return (value > 0x15) ? 0xFF : 0;
 		}
+		
 		while (i < (data1.length * 0.25)) {
 			var average1 = (data1[4*i] + data1[4*i+1] + data1[4*i+2]) / 3;
 			var average2 = (data2[4*i] + data2[4*i+1] + data2[4*i+2]) / 3;
@@ -75,7 +81,28 @@ var ImageModule = {
 			target[4*i+2] = diff;
 			target[4*i+3] = 0xFF;
 			++i;
+			if(diff != 0){
+				validCount ++;
+			}
 		}
+
+		if(!this.lastValid) {
+			console.log('init lastValid');
+			this.lastValid = target;
+		}
+		var rate = validCount*1.0/(width*height);
+		console.log('rate', rate);
+		if(rate < 0.2 ){
+			console.log('reset');
+			target = this.lastValid;
+		}else{
+			console.log('update last valid');
+			this.lastValid = target;
+			target = this.denoise(target, 5, 10);
+		}
+		//取样
+		
+		//this.filtering(target, 3);
 	},
 	compare: function(baseData, screenData) {
 		console.log('data length:', baseData.data.length, screenData.data.length);
@@ -114,10 +141,77 @@ var ImageModule = {
 		return this.processCompare(baseData, screenData);
 	},
 
-	denoise: function(imageData){
-		var step = 1;
-		for(var i = 0; i < imageData.data.length; i = i + 4 * step){
-			
+	denoise: function(imageData, step, threshold){
+		var width = imageData.width;
+		var height = imageData.height;
+		var radius = ((step - 1) /2);
+		var count = function(i,j){
+			var num = 0;
+			for(var m = i-raidus; m < i + radius ; m ++){
+				for(var n = j - radius ; n < j + radius ; n ++){
+					if(imageData.data[m*width + n] == 255){
+						count ++;
+					}
+				}
+			}
+		}
+		for(var i = radius; i < width - radius ; i ++){
+			for(var j = radius; j < radius ; j ++){
+				if(imageData.data[i*width + j] == 255){
+					if(count(i,j) < threshold){
+						imageData[i * width + j] = 0;
+						imageData[i * width + j + 1] = 0;
+						imageData[i * width + j + 2] = 0;
+					}
+				}
+			}
+		}
+
+		return imageData;
+	},
+
+	filtering: function(imgdata, size){
+		var data = imgdata.data,
+			width = imgdata.width,
+			height = imgdata.height,
+			index,
+			row,
+			column,
+			size = size || 3,
+			value = (size-1)/2,
+			sum,
+			i,
+			len,
+			k;
+
+
+		for(i = 0, len = data.length; i<len; i=i+4){
+			index = Math.ceil(i/4);
+			row = Math.ceil(index/width);
+			column = index%width;
+			if( row <= value || row > height-value || column <= value || column >= width-value){
+				continue;
+			}else {
+				sum = 0;
+				if(size == 3){
+					sum += data[(index-2)*4] + data[(index-1)*4] + data[index*4];
+					sum += data[(index-2-width)*4] + data[(index-1-width)*4] + data[(index-width)*4];
+					sum += data[(index-2+width)*4] + data[(index-1+width)*4] + data[(index+width)*4];
+					sum /= 9;
+				}else {
+					sum += data[(index-3)*4] + data[(index-2)*4] + data[(index-1)*4] + data[index*4] + data[(index+1)*4];
+					sum += data[(index-3-width)*4] + data[(index-2-width)*4] + data[(index-1-width)*4] + data[(index-width)*4] + data[(index+1-width)*4];
+					sum += data[(index-3-width*2)*4] + data[(index-2-width*2)*4] + data[(index-1-width*2)*4] + data[(index-width*2)*4] + data[(index+1-width*2)*4];
+					sum += data[(index-3+width)*4] + data[(index-2+width)*4] + data[(index-1+width)*4] + data[(index+width)*4] + data[(index+1+width)*4];
+					sum += data[(index-3+width*2)*4] + data[(index-2+width*2)*4] + data[(index-1+width*2)*4] + data[(index+width*2)*4] + data[(index+1+width*2)*4];
+					sum /= 25;
+				}
+			} 
+			k = (index-1)*4;
+			data[k] = sum;
+			data[k+1] = sum;
+			data[k+2] = sum;
 		}
 	}
+
 }

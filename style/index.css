@@ -15,3 +15,9 @@ canvas {
 	border:1px solid #F9264C;
 	border-radius: 10px;
 }
+
+#compare {
+	position: absolute;
+	top:20px;
+	left: 0;
+}

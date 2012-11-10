@@ -83,12 +83,11 @@ window.onload = function() {
 					lastImageData = curImageData;
 				}
 				var resData = ImageModule.baseCanvas.getContext('2d').createImageData(width,height);
-				ImageModule.differenceAccuracy(resData.data, lastImageData.data, curImageData.data);
+				ImageModule.differenceAccuracy(resData.data, lastImageData, curImageData);
+				//ImageModule.differenceAccuracy(resData, lastImageData, curImageData);
 				ImageModule.compareCanvas.getContext('2d').putImageData(resData,0,0);
 				
-				if(frameCount % 10 == 1){
-					lastImageData = curImageData;
-				}
+				lastImageData = curImageData;	
 			});
 		},
 
