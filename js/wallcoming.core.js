@@ -92,12 +92,12 @@ Jx().$package("WallComing",function(J) {
 				);
 				//alert(r);
 				//console.log(r);
+				//Perfect
+				if(r.rate < 0.1){ 
 
-				if(r.rate < 10%){ //Perfect
+				}else if(r.rate < 0.13){//Good
 
-				}else if(r.rate < 13%){//Good
-
-				}else if(r.rate < 15%){//pass
+				}else if(r.rate < 0.15){//pass
 
 				}else{//Fail
 
