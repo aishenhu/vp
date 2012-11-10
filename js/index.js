@@ -60,40 +60,42 @@ window.onload = function() {
 			} else {
 				video.src = stream;
 			}
-			// ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0);
-			// setTimeout(function() {
-			// 	setInterval(function() {
-			// 		ImageModule.screenCanvas.getContext('2d').drawImage(video, 0, 0);
-			// 		var screenImageData = ImageModule.getImageData(ImageModule.screenCanvas);
-			// 		var grayImageData = ImageModule.getGrayImageData(screenImageData);
-			// 		var resData = ImageModule.start().data;
-			// 		ImageModule.grayCanvas.getContext('2d').putImageData(grayImageData, 0, 0);
-			// 		ImageModule.compareCanvas.getContext('2d').putImageData(resData, 0, 0);
-			// 	}, 100);
-			// }, 2000);
-			var lastImageData = 0;
-			var frameCount = 0;
+			ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0);
+			setTimeout(function() {
+				setInterval(function() {
+					ImageModule.screenCanvas.getContext('2d').drawImage(video, 0, 0);
+					var baseImageData = ImageModule.getImageData(ImageModule.baseCanvas);
+					var screenImageData = ImageModule.getImageData(ImageModule.screenCanvas);
+					// var grayImageData = ImageModule.getGrayImageData(screenImageData);
+					// var resData = ImageModule.start().data;
+					// ImageModule.grayCanvas.getContext('2d').putImageData(grayImageData, 0, 0);
+					// ImageModule.compareCanvas.getContext('2d').putImageData(resData, 0, 0);
+					ImageModule.processCompare(baseImageData, screenImageData);
+				}, 100);
+			}, 2000);
+			// var lastImageData = 0;
+			// var frameCount = 0;
 			
-			rafLoop(function(){
-			// ImageModule.compareCanvas.style.width = getComputedStyle(video).width;
-			// ImageModule.compareCanvas.style.height = getComputedStyle(video).height;
-			ImageModule.compareCanvas.style.width = '1024px';
-			ImageModule.compareCanvas.style.height = '768px';
-				frameCount ++;
-				ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0);
-				var width = ImageModule.baseCanvas.width;
-				var height = ImageModule.baseCanvas.height;
-				var curImageData = ImageModule.baseCanvas.getContext('2d').getImageData(0,0,width,height);
-				if(!lastImageData){
-					lastImageData = curImageData;
-				}
-				var resData = ImageModule.baseCanvas.getContext('2d').createImageData(width,height);
-				ImageModule.differenceAccuracy(resData.data, lastImageData, curImageData);
-				//ImageModule.differenceAccuracy(resData, lastImageData, curImageData);
-				ImageModule.compareCanvas.getContext('2d').putImageData(resData,0,0);
+			// rafLoop(function(){
+			// // ImageModule.compareCanvas.style.width = getComputedStyle(video).width;
+			// // ImageModule.compareCanvas.style.height = getComputedStyle(video).height;
+			// ImageModule.compareCanvas.style.width = '1024px';
+			// ImageModule.compareCanvas.style.height = '768px';
+			// 	frameCount ++;
+			// 	ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0);
+			// 	var width = ImageModule.baseCanvas.width;
+			// 	var height = ImageModule.baseCanvas.height;
+			// 	var curImageData = ImageModule.baseCanvas.getContext('2d').getImageData(0,0,width,height);
+			// 	if(!lastImageData){
+			// 		lastImageData = curImageData;
+			// 	}
+			// 	var resData = ImageModule.baseCanvas.getContext('2d').createImageData(width,height);
+			// 	ImageModule.differenceAccuracy(resData.data, lastImageData, curImageData);
+			// 	//ImageModule.differenceAccuracy(resData, lastImageData, curImageData);
+			// 	ImageModule.compareCanvas.getContext('2d').putImageData(resData,0,0);
 				
-				lastImageData = curImageData;	
-			});
+			// 	lastImageData = curImageData;	
+			// });
 		},
 
 		onError: function(error) {

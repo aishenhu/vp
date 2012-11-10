@@ -24,36 +24,35 @@ var ImageModule = {
 	},
 
 	processCompare: function(baseData, screenData) {
-		console.log('data length:', baseData.data.length, screenData.data.length);
-		var resData = screenData;
-		var step = 1;
+		this.frameCount = this.frameCount || 0;
+		this.frameCount ++;
+		var now = +new Date();
+		//this.filtering(baseData, 3);
+		//this.filtering(screenData, 3);
+
+		var baseD = baseData.data,
+			screenD = screenData.data,
+			width = screenD.width,
+			height = screenD.height;
 		var diffcount = 0;
-		var tStart = +new Date();
-		var range = 20;
-		baseData = this.getGrayImageData(baseData);
-		screenData = this.getGrayImageData(screenData);
-		for (var i = 0; i < baseData.data.length; i = i + 4 * step) {
-			if (Math.abs(baseData.data[i] - screenData.data[i]) > range || Math.abs(baseData.data[i] - screenData.data[i]) > range || Math.abs(baseData.data[i] - screenData.data[i]) > range) {
-				diffcount++;
-				resData.data[i] = 0;
-				resData.data[i + 1] = 0;
-				resData.data[i + 2] = 0;
-				resData.data[i + 3] = 0;
-			} else {
-				resData.data[i] = 255;
-				resData.data[i + 1] = 255;
-				resData.data[i + 2] = 255;
-				resData.data[i + 3] = 255;
-			}
+		var range = 30;
+
+		for (var i = 0, len = screenD.length; i < len; i = i + 4) {
+			var grayB = baseD[i]*0.3 + baseD[i+1]*0.59 + baseD[i+2]*0.11;
+				grayR = screenD[i]*0.3 + screenD[i+1]*0.59 + screenD[i+2]*0.11;
+				value = Math.abs(grayR - grayB)>range? 0 : 255;
+			screenD[i] = value;
+			screenD[i + 1] = value;
+			screenD[i + 2] = value;
+			//resData[i + 3] = 255;
 		}
-		var tEnd = +new Date();
-		console.log('duration:', tStart, tEnd, tEnd - tStart);
-		console.log('diffcount:', diffcount, diffcount / 4, Math.sqrt(diffcount / 4));
-		return {
-			data: resData,
-			duration: tEnd - tStart
-		}
+
+		//this.swell(screenData, 3);
+		//this.corrosion(screenData, 3);
+		console.log((+new Date())-now);
+		this.compareCanvas.getContext('2d').putImageData(screenData,0,0);
 	},
+
 
 	differenceAccuracy: function(target, last, cur) {
 		var data1 = last.data;
@@ -81,7 +80,7 @@ var ImageModule = {
 			target[4*i+2] = diff;
 			target[4*i+3] = 0xFF;
 			if(diff == 0){
-				target[4*i + 3 ] = 0;
+				//target[4*i + 3 ] = 0;
 			}
 			++i;
 			if(diff != 0){
@@ -89,31 +88,30 @@ var ImageModule = {
 			}
 		}
 
-		if(!this.lastValid) {
-			console.log('init lastValid');
-			this.lastValid = target;
-		}
-		var rate = validCount*1.0/(width*height);
-		console.log('rate', rate);
-		if(rate < 0.2 ){
-			console.log('reset');
-			target = this.lastValid;
-		}else{
-			console.log('update last valid');
-			this.lastValid = target;
-			this.denoise(target, 5, 10);
-		}
-		//取样
-		while (i < (target.length * 0.25)) {
-			if(target[4*i] != 0){
-				target[4*i] = 255;
-				target[4*i+1] = 255;
-				target[4*i+2] = 255;
-				target[4*i+3] = 0xFF;
-				
-			}
-			++i;
-		}
+		// if(!this.lastValid) {
+		// 	console.log('init lastValid');
+		// 	this.lastValid = target;
+		// }
+		// var rate = validCount*1.0/(width*height);
+		// console.log('rate', rate);
+		// if(rate < 0.2 ){
+		// 	console.log('reset');
+		// 	target = this.lastValid;
+		// }else{
+		// 	console.log('update last valid');
+		// 	this.lastValid = target;
+		// 	//this.denoise(target, 5, 10);
+		// }
+		// //取样
+		// while (i < (target.length * 0.25)) {
+		// 	if(target[4*i] != 0){
+		// 		target[4*i] = 255;
+		// 		target[4*i+1] = 255;
+		// 		target[4*i+2] = 255;
+		// 		target[4*i+3] = 0xFF;
+		// 	}
+		// 	++i;
+		// }
 		//this.filtering(target, 3);
 	},
 	compare: function(baseData, screenData) {
