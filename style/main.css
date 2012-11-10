@@ -7,9 +7,140 @@
 	position: absolute;
 	opacity: 0.9;
 	background:url('../images/bg1.jpg');
+	-webkit-transition:all 0.8s ease-in-out;
 }
 /*.textCanvas{
 	position: absolute;
 	left:20px;
 	top: 20px;
 }*/
+
+.hidden{
+	opacity: 0;
+	-webkit-transition:all 0.8s ease-in-out;
+}
+
+body {
+	margin:0;
+	background-color:#241407;
+	overflow-x:hidden;
+}
+.back {
+
+
+}
+.main {
+	margin: 0 auto;
+	text-align: center;
+	width: 1024px;
+	height: 768px;
+	top: 50%;
+	position: absolute;
+	left: 50%;
+	margin: -384px 0 0 -512px;
+	
+}
+.left{
+	position: absolute;
+	left:0;
+	top:0;
+}
+.right{
+	position: absolute;
+	left:512px;
+	top:0;
+}
+.mainLeft{
+	background: url(../image/start_left.jpg) no-repeat;
+	width:512px;
+	height: 768px;
+	position: absolute;	
+
+}
+.mainRight {
+	background: url(../image/start_right.jpg) no-repeat;
+	width: 512px;
+	height: 768px;
+	position: absolute;
+}
+.mainLeftGo {
+	-webkit-animation-name: leftGoAnimation;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: 1;
+	left:-1200px;
+	opacity: 0;
+}
+	
+@-webkit-keyframes leftGoAnimation{
+	from {
+		left: 0;
+		opacity: 1
+	}
+	50% {
+		left: -300px;
+
+	}
+	80% {
+
+		left: -480px;
+	}
+	to {
+		left: -1200px;
+		opacity: 0;
+	}	
+}
+
+.mainRightGo{
+	-webkit-animation-name: rightGoAnimation;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: 1;
+	left: 1200px;
+	opacity: 0;
+}
+@-webkit-keyframes rightGoAnimation {
+	from {
+		left: 0;
+		opacity: 1;
+	}
+	50% {
+		left: 320px;
+
+	}
+	80% {
+		left: 400px;
+	}
+	to {
+		left: 1200px;
+		opacity: 0;
+	}	
+}
+.mainGo{
+	-webkit-animation-name: mainGoAnimation;
+	-webkit-animation-duration: 3s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: 1;
+	
+	background: url(image/main.jpg) no-repeat;
+
+}
+@-webkit-keyframes mainGoAnimation {
+	from {
+		opacity: 1;
+		background-color: white;
+	}
+	50% {
+		opacity: 1;
+		background-color: white;
+
+	}
+	80% {
+		opacity: 1;
+		background-color: white;
+	}
+	to {
+		opacity: 1;
+		background-color: white;
+	}	
+}

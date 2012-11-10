@@ -1,5 +1,8 @@
 ;
 window.onload = function() {
+	var J = Jx();
+	var $D = J.dom,
+		$E = J.event;
 	/**
 	 * 创建帧动画对象，传入的函数，将在下一帧绘制时执行，所以函数只执行
 	 * 一次
@@ -69,54 +72,21 @@ window.onload = function() {
 					//console.log(1);
 				}, 100);
 			}, 5000);
-			// ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0);
-			// setTimeout(function() {
-			// 	setInterval(function() {
-			// 		ImageModule.screenCanvas.getContext('2d').drawImage(video, 0, 0);
-			// 		var baseImageData = ImageModule.getImageData(ImageModule.baseCanvas);
-			// 		var screenImageData = ImageModule.getImageData(ImageModule.screenCanvas);
-			// 		// var grayImageData = ImageModule.getGrayImageData(screenImageData);
-			// 		// var resData = ImageModule.start().data;
-			// 		// ImageModule.grayCanvas.getContext('2d').putImageData(grayImageData, 0, 0);
-			// 		// ImageModule.compareCanvas.getContext('2d').putImageData(resData, 0, 0);
-			// 		ImageModule.processCompare(baseImageData, screenImageData);
-			// 	}, 100);
-			// }, 2000);
-			// var lastImageData = 0;
-			// var frameCount = 0;
-			
-			// rafLoop(function(){
-			// // ImageModule.compareCanvas.style.width = getComputedStyle(video).width;
-			// // ImageModule.compareCanvas.style.height = getComputedStyle(video).height;
-			// ImageModule.compareCanvas.style.width = '1024px';
-			// ImageModule.compareCanvas.style.height = '768px';
-			// 	frameCount ++;
-			// 	ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0);
-			// 	var width = ImageModule.baseCanvas.width;
-			// 	var height = ImageModule.baseCanvas.height;
-			// 	var curImageData = ImageModule.baseCanvas.getContext('2d').getImageData(0,0,width,height);
-			// 	if(!lastImageData){
-			// 		lastImageData = curImageData;
-			// 	}
-			// 	var resData = ImageModule.baseCanvas.getContext('2d').createImageData(width,height);
-			// 	ImageModule.differenceAccuracy(resData.data, lastImageData, curImageData);
-			// 	//ImageModule.differenceAccuracy(resData, lastImageData, curImageData);
-			// 	ImageModule.compareCanvas.getContext('2d').putImageData(resData,0,0);
-				
-			// 	lastImageData = curImageData;	
-			// });
 		},
 
 		onError: function(error) {
 			console.log(error);
 		}
 	}
-	// var worker = new Worker('js/img.js');
-	ImageModule.init();
-	VideoModule.init();
-	VideoModule.start();
-	// ImageModule.baseCanvas.getContext('2d').drawImage(document.getElementById('baseImg'),0,0);
-	// ImageModule.screenCanvas.getContext('2d').drawImage(document.getElementById('screenImg'),0,0);
-	// var resData = ImageModule.start().data;
-	// ImageModule.compareCanvas.getContext('2d').putImageData(resData, 0,0);
+	// ImageModule.init();
+	// VideoModule.init();
+	// VideoModule.start();
+	Wallcoming.door.openDoor(function(){
+		//do something when the door is open
+		$D.removeClass(document.getElementById('canvasWrap'), 'hidden');
+		ImageModule.init();
+		VideoModule.init();
+		VideoModule.start();
+		WallComing.time.startGame();
+	});
 }
