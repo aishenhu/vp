@@ -64,14 +64,46 @@ window.onload = function() {
 				video.src = stream;
 			}
 			setTimeout(function() {
-				ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0, 1024, 768);
+				var ctx = ImageModule.baseCanvas.getContext('2d');
+				ctx.save();
+				ctx.scale(-1,1);
+				ctx.drawImage(video, -1024, 0, 1024, 768);
+				ctx.restore();
 				setInterval(function() {
-					ImageModule.screenCanvas.getContext('2d').drawImage(video, 0, 0, 1024, 768);
-					ImageModule.start();
+					if(window.beginWall){
+						var ctx = ImageModule.screenCanvas.getContext('2d');
+						ctx.save();
+						ctx.scale(-1,1);
+						ctx.drawImage(video, -1024, 0, 1024, 768);
+						ctx.restore();
+						ImageModule.start();
+					}else{
+						// var compareData = ImageModule.compareCanvas.getContext("2d").getImageData(0,0,ImageModule.compareCanvas.width,ImageModule.compareCanvas.height),
+						// 	compareD = compareData.data;
+						// for (var i = 0, len = compareD.length; i < len; i = i + 4) {
+						// 	//console.log(compareD[i+3]);
+						// 	if(compareD[i+3] != 0){
+						// 		compareD[i] = 0;
+						// 		compareD[i + 1] = 255;
+						// 		compareD[i + 2] = 0;
+						// 		compareD[i + 3] = 255;
+						// 	}
+						// }
+						// ImageModule.compareCanvas.getContext('2d').putImageData(compareData,0,0);
+					}
 					//ImageModule.compareCanvas.getContext('2d').putImageData(resData, 0, 0);
 					//console.log(1);
 				}, 100);
-			}, 5000);
+			}, 2000);
+			// setTimeout(function() {
+			// 	ImageModule.baseCanvas.getContext('2d').drawImage(video, 0, 0, 1024, 768);
+			// 	setInterval(function() {
+			// 		ImageModule.screenCanvas.getContext('2d').drawImage(video, 0, 0, 1024, 768);
+			// 		ImageModule.start();
+			// 		//ImageModule.compareCanvas.getContext('2d').putImageData(resData, 0, 0);
+			// 		//console.log(1);
+			// 	}, 100);
+			// }, 2500);
 		},
 
 		onError: function(error) {
@@ -88,12 +120,13 @@ window.onload = function() {
 		ImageModule.init();
 		VideoModule.init();
 		VideoModule.start();
+		window.sound1("start",1);
 		WallComing.time.startGame();
 	});
 
 	Wallcoming.effects.init();
 	setTimeout(function(){
-		Wallcoming.effects.showBall();
+		//Wallcoming.effects.showBall();
 
 	},200);
 }

@@ -22,6 +22,7 @@ var ImageModule = {
 			screenD = screenData.data,
 			width = this.pwidth,
 			height = this.pheight;
+
 		var diffcount = 0;
 		var range = 40;
 		console.log('width, height', width, height);
@@ -30,10 +31,10 @@ var ImageModule = {
 			var grayB = baseD[i]*0.3 + baseD[i+1]*0.59 + baseD[i+2]*0.11;
 				grayR = screenD[i]*0.3 + screenD[i+1]*0.59 + screenD[i+2]*0.11;
 				value = Math.abs(grayR - grayB)>range? 0 : 255;
-			screenD[i] = value;
-			screenD[i + 1] = value;
-			screenD[i + 2] = value;
-			screenD[i + 3] = Math.abs(grayR - grayB)>range? 255 : 0;
+			screenD[i] = 0;
+			screenD[i + 1] = 0;
+			screenD[i + 2] = 250;
+			screenD[i + 3] = Math.abs(grayR - grayB)>range? 175 : 0;
 		}
 
 		//this.swell(screenData, 3);
@@ -184,13 +185,12 @@ var ImageModule = {
 	}, 
 
 	compareAlpha:function(srcImageData, targetImageData){
+		console.log(srcImageData.data.length, targetImageData.data.length);
 		var diffcount = 0;
 		var invokeCount = 0;
 		for(var i = 0; i < srcImageData.data.length; i = i + 4){
-			
 			if(srcImageData.data[i+3] > 0){
 				invokeCount++;
-
 				var space = 120;
 				if(i < space * this.pwidth){
 					diffcount ++;
@@ -200,19 +200,15 @@ var ImageModule = {
 					diffcount ++;
 				}else if(i % this.pwidth > this.pwidth - space){
 					diffcount ++;
-				}
-				else 
-				if(Math.abs((srcImageData.data[i+3] - targetImageData.data[i+3]) < 255)){
-					diffcount ++;
+				}else if(Math.abs((srcImageData.data[i+3] - targetImageData.data[i+3]) < 125)){
+						diffcount ++;
 				}
 			}
-			if(i<10)
-				console.log('alpha:',srcImageData.data[i+3] , targetImageData.data[i+3]);
 		}
-		console.log('invokeCount:', invokeCount);
+		console.log('invokeCount:', invokeCount, diffcount/invokeCount);
 		console.log('diffcount:', diffcount);
 		return {
-			diffcount: diffcount,
+			invokeCount: invokeCount,
 			rate : diffcount*4.0/srcImageData.data.length
 		}
 	}

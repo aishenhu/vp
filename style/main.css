@@ -6,7 +6,7 @@
 	margin: -384px 0 0 -512px;
 	position: absolute;
 	opacity: 0.9;
-	background:url('../images/bg1.jpg');
+	/*background:url('../images/bg1.jpg');*/
 	-webkit-transition:all 0.8s ease-in-out;
 }
 /*.textCanvas{
@@ -148,13 +148,15 @@ body {
 
 .bad{
 	position: absolute;
-	background: url('../images/bad.png');
+	background: url('../images/bad2.png');
 	left: 50%;
 	top:50%;
-	width: 410px;
-	height: 214px;
+/*	width: 410px;
+	height: 214px;*/
+	width:200px;
+	height:100px;
 	/*background: red;*/
-	margin: -107px 0 0 -205px;
+	margin: -50px 0 0 -100px;
 	-webkit-animation:bad 1s ease-out;
 	-webkit-animation-fill-mode:both;
 }
@@ -166,13 +168,15 @@ body {
 
 .good{
 	position: absolute;
-	background: url('../images/good.png');
+	background: url('../images/cool2.png');
 	left: 50%;
 	top:50%;
-	width: 410px;
-	height: 214px;
+/*	width: 410px;
+	height: 214px;*/
+	width:200px;
+	height:100px;
 	/*background: red;*/
-	margin: -107px 0 0 -205px;
+	margin: -50px 0 0 -100px;
 	-webkit-animation:bad 1s ease-out;
 	-webkit-animation-fill-mode:both;
 }
@@ -184,13 +188,15 @@ body {
 
 .perfect{
 	position: absolute;
-	background: url('../images/perfect.png');
+	background: url('../images/perfect2.png');
 	left: 50%;
 	top:50%;
-	width: 410px;
-	height: 214px;
+/*	width: 410px;
+	height: 214px;*/
+	width:200px;
+	height:100px;
 	/*background: red;*/
-	margin: -107px 0 0 -205px;
+	margin: -50px 0 0 -100px;
 	-webkit-animation:perfect 1s ease-out;
 	-webkit-animation-fill-mode:both;
 }
@@ -202,13 +208,15 @@ body {
 
 .crush{
 	position: absolute;
-	background: url('../images/crush.png');
+	background: url('../images/crush1.png');
 	left: 50%;
 	top:50%;
-	width: 410px;
-	height: 214px;
+/*	width: 410px;
+	height: 214px;*/
+	width:200px;
+	height:100px;
 	/*background: red;*/
-	margin: -107px 0 0 -205px;
+	margin: -50px 0 0 -100px;
 	-webkit-animation:crush 1s ease-out;
 	-webkit-animation-fill-mode:both;
 }

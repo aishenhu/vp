@@ -40,8 +40,8 @@ Jx().$package("WallComing.class",function(J) {
 			this.speed=[Vector2.zero,0];
 			this.hasMovedDuration=0;
 			this.moveSumDuration=6;
-			this.center.y-=100;
-			this.maxZ=100;
+			//this.center.y+=300;
+			this.maxZ=500;
 		},
 		update:function(duration){
 		
@@ -52,10 +52,11 @@ Jx().$package("WallComing.class",function(J) {
 			this.speedZ=this.speedZ+za*duration;
 			//this.z+=this.speedZ*this.scale*duration;
 			this.hasMovedDuration+=duration;
-			this.z=bezier([[0,this.ori_z],[0,0.72*this.maxZ],[0,0.42*this.maxZ],[this.moveSumDuration,this.maxZ]],this.hasMovedDuration/this.moveSumDuration)[1];
+			this.z=bezier([[0,this.ori_z],[this.moveSumDuration,this.maxZ]],this.hasMovedDuration/this.moveSumDuration)[1];
 	
 			Wall.superClass.update.call(this,duration);
 			if(this.z>this.maxZ) this.disappear();
+			if((this.moveSumDuration-this.hasMovedDuration)<0.2) window.beginWall=false;
 
 		},
 		draw:function(){
@@ -69,7 +70,7 @@ Jx().$package("WallComing.class",function(J) {
 
 			ctx.save();
 			cg.view.apply(ctx);
-			ctx.translate(x,y);
+			ctx.translate(x,y+50);
 			ctx.rotate(this.angle*-1);
 			ctx.drawImage(img,0,0,img.width,img.height,-s[0]/2,-s[1]/2,s[0],s[1]);
 			ctx.restore();

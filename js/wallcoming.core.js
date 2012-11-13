@@ -26,18 +26,33 @@ var isShow=true;
 
 	var bgChangeDuration=0.5;
 	var bgt=0;
-	var bgArr=["url('images/bg1.jpg')","url('images/bg.png')"];
+	var bgArr=["b0","b1"];
+	var bgIndex=0;
+
+
+	window.sound=null;
+	window.sound1=function(type,flag){
+		var sound=window.sound;
+		flag&&sound && ($D.id("audio_"+sound).pause());
+
+		$D.id("audio_"+type).play();
+		window.sound = type;
+	}
+
+	var bgChangeDuration=0.5;
+	var bgt=0;
+	var bgArr=["b0","b1"];
 	var bgIndex=0;
 
 	var wallIndex=0;
-	var wallArr=["wall0","wall1","wall2"];
+	var wallArr=["w1","w2","w3","w4","w5","w6","w7","w8"];
 
-	var wallDuration=1;
+	var wallDuration=2;
 	var wallt=0;
 
 	var gameObj={
 		initialize:function(){
-			
+			window.beginWall=true;
 			var self=this;
 			//精灵列表
 			this.spriteList=new SL();
@@ -48,6 +63,8 @@ var isShow=true;
 			this.createWall();
 
 			this.compare=$D.id("compare");
+			window.sound1("play",1);
+			 // window.sound1("score");
 			
 		},
 		createWall:function(){
@@ -69,14 +86,14 @@ var isShow=true;
 			this.wall=wall;
 		},
 		update:function(duration){
-			//bgt+=duration;
-			// if(bgt>=bgChangeDuration) {
-			// 	cg.canvas.style.background=bgArr[bgIndex];
-			
-			// 	bgt=0;
-			// 	bgIndex++;
-			// 	if(bgIndex==2) bgIndex=0;
-			// }
+			bgt+=duration;
+			if(bgt>=bgChangeDuration) {
+				this.bgImg=cg.loader.loadedImgs[srcObj[bgArr[bgIndex]]];
+
+				bgt=0;
+				bgIndex++;
+				if(bgIndex==2) bgIndex=0;
+			}
 
 			var spriteList=this.spriteList;
 			//精灵更新
@@ -106,14 +123,49 @@ var isShow=true;
 				//alert(r);
 				//console.log(r);
 				//Perfect
-				if(r.rate < 0.1&&isShow){
-					showEffect($D.id("perfect"),"perfect");
-				}else if(r.rate < 0.13&&isShow){//Good
-					showEffect($D.id("good"),"good");
-				}else if(r.rate < 0.15&&isShow){//pass
-					showEffect($D.id("crush"),"crush");
+				// if(r.rate < 0.1&&isShow && r.invokeCount > 30000){
+				// 	window.sound1("score");
+				// 	var key = Math.random() * 10;
+				// 	if(key > 4){
+				// 		showEffect($D.id("perfect"),"perfect");
+				// 	}else{
+				// 		showEffect($D.id("bad"),"bad");
+				// 	}
+				// }else if(r.rate < 0.13&&isShow&& r.invokeCount > 30000){//Good
+				// 	window.sound1("score");
+				// 	var key = Math.random() * 10;
+				// 	if(key > 4){
+				// 		showEffect($D.id("good"),"good");
+				// 	}else{
+				// 		showEffect($D.id("bad"),"bad");
+				// 	}
+				// }else if(r.rate < 0.15&&isShow&& r.invokeCount > 30000){//pass
+				// 	window.sound1("score");
+				// 	showEffect($D.id("bad"),"bad");
+				// }else if(isShow){//Fail
+				// 	window.sound1("score");
+				// 	showEffect($D.id("crush"),"crush");
+				// }
+				// 
+				if(r.rate < 0.07&&isShow && r.invokeCount > 20000){
+					window.sound1("score");
+					var key = Math.random() * 10;
+					if(key > 4){
+						showEffect($D.id("good"),"good");
+					}else{
+						showEffect($D.id("bad"),"bad");
+					}
+				}else if(r.rate < 0.15&&isShow&& r.invokeCount > 20000){//Good
+					window.sound1("score");
+					var key = Math.random() * 10;
+					if(key > 8){
+						showEffect($D.id("good"),"good");
+					}else{
+						showEffect($D.id("bad"),"bad");
+					}
 				}else if(isShow){//Fail
-					showEffect($D.id("bad"),"bad");
+					window.sound1("score");
+					showEffect($D.id("crush"),"crush");
 					
 				}
 
@@ -127,6 +179,7 @@ var isShow=true;
 					isShow=true;
 					this.createWall();
 					wallt=0;
+					window.beginWall=true;
 				}
 			
 			}
@@ -137,9 +190,27 @@ var isShow=true;
 			// var _img=cg.loader.loadedImgs[srcObj.test];
 			// cg.context.drawImage(_img,0,0,_img.width,_img.height,250,200,400,300);
 			//绘制
-			var bgImg=cg.loader.loadedImgs[srcObj.background];
+			// var bgImg=cg.loader.loadedImgs[srcObj.background];
+			// cg.context.save();
+			// cg.context.globalAlpha=0.5;
+			// cg.context.drawImage(bgImg,0,0,bgImg.width,bgImg.height,0,0,bgImg.width,bgImg.height);
+			// cg.context.restore();
+
+			// cg.context.save();
+			
+			// cg.context.drawImage(bgImg,0,0,120,bgImg.height,0,0,120,bgImg.height);
+			// cg.context.drawImage(bgImg,904,0,120,bgImg.height,904,0,120,bgImg.height);
+			// cg.context.restore();
+			// this.spriteList.draw();
+			
+			//绘制
+			var bgImg=this.bgImg||cg.loader.loadedImgs[srcObj["b0"]];
 			cg.context.save();
-			cg.context.globalAlpha=0.5;
+			cg.context.globalAlpha=0.9;
+			// var b=$D.id("canvasWrap");
+			// var str="url('"+srcObj[bgArr[bgIndex]]+"')";
+			// b.style.background=str;
+		
 			cg.context.drawImage(bgImg,0,0,bgImg.width,bgImg.height,0,0,bgImg.width,bgImg.height);
 			cg.context.restore();
 
